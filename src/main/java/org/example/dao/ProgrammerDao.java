@@ -12,32 +12,42 @@ public class ProgrammerDao {
 
     public void addProgrammer(Programmer programmer) throws SQLException {
         String sql = "INSERT INTO programmers (project_id, last_name, first_name, patronymic, position, start_date, end_date, hourly_rate, full_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            
-            pstmt.setLong(1, programmer.getProjectId());
-            pstmt.setString(2, programmer.getLastName());
-            pstmt.setString(3, programmer.getFirstName());
-            pstmt.setString(4, programmer.getPatronymic());
-            pstmt.setString(5, programmer.getPosition());
-            pstmt.setDate(6, Date.valueOf(programmer.getStartDate()));
-            
-            if (programmer.getEndDate() != null) {
-                pstmt.setDate(7, Date.valueOf(programmer.getEndDate()));
-            } else {
-                pstmt.setNull(7, Types.DATE);
-            }
-            
-            pstmt.setBigDecimal(8, programmer.getHourlyRate());
-            pstmt.setBoolean(9, programmer.isFullTime());
-            
-            pstmt.executeUpdate();
+        Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+            conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                
+                pstmt.setLong(1, programmer.getProjectId());
+                pstmt.setString(2, programmer.getLastName());
+                pstmt.setString(3, programmer.getFirstName());
+                pstmt.setString(4, programmer.getPatronymic());
+                pstmt.setString(5, programmer.getPosition());
+                pstmt.setDate(6, Date.valueOf(programmer.getStartDate()));
+                
+                if (programmer.getEndDate() != null) {
+                    pstmt.setDate(7, Date.valueOf(programmer.getEndDate()));
+                } else {
+                    pstmt.setNull(7, Types.DATE);
+                }
+                
+                pstmt.setBigDecimal(8, programmer.getHourlyRate());
+                pstmt.setBoolean(9, programmer.isFullTime());
+                
+                pstmt.executeUpdate();
 
-            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    programmer.setId(generatedKeys.getLong(1));
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        programmer.setId(generatedKeys.getLong(1));
+                    }
                 }
             }
+            conn.commit();
+        } catch (SQLException e) {
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
+            throw e;
+        } finally {
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
         }
     }
 
@@ -95,33 +105,53 @@ public class ProgrammerDao {
 
     public void updateProgrammer(Programmer programmer) throws SQLException {
         String sql = "UPDATE programmers SET project_id = ?, last_name = ?, first_name = ?, patronymic = ?, position = ?, start_date = ?, end_date = ?, hourly_rate = ?, full_time = ? WHERE id = ?";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setLong(1, programmer.getProjectId());
-            pstmt.setString(2, programmer.getLastName());
-            pstmt.setString(3, programmer.getFirstName());
-            pstmt.setString(4, programmer.getPatronymic());
-            pstmt.setString(5, programmer.getPosition());
-            pstmt.setDate(6, Date.valueOf(programmer.getStartDate()));
-            if (programmer.getEndDate() != null) {
-                pstmt.setDate(7, Date.valueOf(programmer.getEndDate()));
-            } else {
-                pstmt.setNull(7, Types.DATE);
+        Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+            conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                
+                pstmt.setLong(1, programmer.getProjectId());
+                pstmt.setString(2, programmer.getLastName());
+                pstmt.setString(3, programmer.getFirstName());
+                pstmt.setString(4, programmer.getPatronymic());
+                pstmt.setString(5, programmer.getPosition());
+                pstmt.setDate(6, Date.valueOf(programmer.getStartDate()));
+                if (programmer.getEndDate() != null) {
+                    pstmt.setDate(7, Date.valueOf(programmer.getEndDate()));
+                } else {
+                    pstmt.setNull(7, Types.DATE);
+                }
+                pstmt.setBigDecimal(8, programmer.getHourlyRate());
+                pstmt.setBoolean(9, programmer.isFullTime());
+                pstmt.setLong(10, programmer.getId());
+                pstmt.executeUpdate();
             }
-            pstmt.setBigDecimal(8, programmer.getHourlyRate());
-            pstmt.setBoolean(9, programmer.isFullTime());
-            pstmt.setLong(10, programmer.getId());
-            pstmt.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
+            throw e;
+        } finally {
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
         }
     }
 
     public void deleteProgrammer(long id) throws SQLException {
         String sql = "DELETE FROM programmers WHERE id = ?";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setLong(1, id);
-            pstmt.executeUpdate();
+        Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+            conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setLong(1, id);
+                pstmt.executeUpdate();
+            }
+            conn.commit();
+        } catch (SQLException e) {
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
+            throw e;
+        } finally {
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
         }
     }
 

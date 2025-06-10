@@ -12,23 +12,33 @@ public class ProjectDao {
 
     public void addProject(Project project) throws SQLException {
         String sql = "INSERT INTO projects (name, customer, start_date, end_date) VALUES (?, ?, ?, ?)";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, project.getName());
-            pstmt.setString(2, project.getCustomer());
-            pstmt.setDate(3, Date.valueOf(project.getStartDate()));
-            if (project.getEndDate() != null) {
-                pstmt.setDate(4, Date.valueOf(project.getEndDate()));
-            } else {
-                pstmt.setNull(4, Types.DATE);
-            }
-            pstmt.executeUpdate();
+        Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+            conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                pstmt.setString(1, project.getName());
+                pstmt.setString(2, project.getCustomer());
+                pstmt.setDate(3, Date.valueOf(project.getStartDate()));
+                if (project.getEndDate() != null) {
+                    pstmt.setDate(4, Date.valueOf(project.getEndDate()));
+                } else {
+                    pstmt.setNull(4, Types.DATE);
+                }
+                pstmt.executeUpdate();
 
-            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    project.setId(generatedKeys.getLong(1));
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        project.setId(generatedKeys.getLong(1));
+                    }
                 }
             }
+            conn.commit();
+        } catch (SQLException e) {
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
+            throw e;
+        } finally {
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
         }
     }
 
@@ -71,27 +81,47 @@ public class ProjectDao {
 
     public void updateProject(Project project) throws SQLException {
         String sql = "UPDATE projects SET name = ?, customer = ?, start_date = ?, end_date = ? WHERE id = ?";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, project.getName());
-            pstmt.setString(2, project.getCustomer());
-            pstmt.setDate(3, Date.valueOf(project.getStartDate()));
-            if (project.getEndDate() != null) {
-                pstmt.setDate(4, Date.valueOf(project.getEndDate()));
-            } else {
-                pstmt.setNull(4, Types.DATE);
+        Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+            conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, project.getName());
+                pstmt.setString(2, project.getCustomer());
+                pstmt.setDate(3, Date.valueOf(project.getStartDate()));
+                if (project.getEndDate() != null) {
+                    pstmt.setDate(4, Date.valueOf(project.getEndDate()));
+                } else {
+                    pstmt.setNull(4, Types.DATE);
+                }
+                pstmt.setLong(5, project.getId());
+                pstmt.executeUpdate();
             }
-            pstmt.setLong(5, project.getId());
-            pstmt.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
+            throw e;
+        } finally {
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
         }
     }
 
     public void deleteProject(long id) throws SQLException {
         String sql = "DELETE FROM projects WHERE id = ?";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setLong(1, id);
-            pstmt.executeUpdate();
+        Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+            conn.setAutoCommit(false);
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setLong(1, id);
+                pstmt.executeUpdate();
+            }
+            conn.commit();
+        } catch (SQLException e) {
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
+            throw e;
+        } finally {
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
         }
     }
 
