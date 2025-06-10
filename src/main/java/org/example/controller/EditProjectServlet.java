@@ -13,7 +13,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 @WebServlet("/editProject")
-public class EditProjectServlet extends HttpServlet {
+@AuthRequired(roles = {"MANAGER"})
+public class EditProjectServlet extends AuthBaseServlet {
     private ProjectDao projectDao;
 
     @Override
@@ -28,7 +29,7 @@ public class EditProjectServlet extends HttpServlet {
             Project project = projectDao.getProjectById(projectId);
             if (project != null) {
                 req.setAttribute("project", project);
-                req.getRequestDispatcher("/edit-project.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/edit-project.jsp").forward(req, resp);
             } else {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Project not found.");
             }

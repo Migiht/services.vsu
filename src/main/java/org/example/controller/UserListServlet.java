@@ -14,7 +14,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/users")
-public class UserListServlet extends HttpServlet {
+@AuthRequired(roles = {"ADMIN"})
+public class UserListServlet extends AuthBaseServlet {
     private UserDao userDao;
 
     @Override

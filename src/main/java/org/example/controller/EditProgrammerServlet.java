@@ -16,7 +16,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 @WebServlet("/editProgrammer")
-public class EditProgrammerServlet extends HttpServlet {
+@AuthRequired(roles = {"MANAGER"})
+public class EditProgrammerServlet extends AuthBaseServlet {
     private ProgrammerDao programmerDao;
     private ProjectDao projectDao;
 
@@ -33,7 +34,7 @@ public class EditProgrammerServlet extends HttpServlet {
             Programmer programmer = programmerDao.getProgrammerById(programmerId);
             if (programmer != null) {
                 req.setAttribute("programmer", programmer);
-                req.getRequestDispatcher("/edit-programmer.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/edit-programmer.jsp").forward(req, resp);
             } else {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Programmer not found.");
             }

@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/deleteUser")
-public class DeleteUserServlet extends HttpServlet {
+@AuthRequired(roles = {"ADMIN"})
+public class DeleteUserServlet extends AuthBaseServlet {
     private UserDao userDao;
 
     @Override

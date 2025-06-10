@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <a href="${pageContext.request.contextPath}/add-user.jsp" class="add-link">Add New User</a>
+    <a href="${pageContext.request.contextPath}/addUser" class="add-link">Add New User</a>
 
     <table>
         <thead>

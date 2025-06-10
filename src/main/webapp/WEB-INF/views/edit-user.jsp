@@ -12,10 +12,16 @@
         input[type="submit"] { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
         input[type="submit"]:hover { background-color: #0056b3; }
         .back-link { margin-top: 20px; }
+        .error { color: #d9534f; margin-bottom: 15px; }
     </style>
 </head>
 <body>
     <h1>Edit User: ${userToEdit.username}</h1>
+
+    <c:if test="${not empty error}">
+        <p class="error">${error}</p>
+    </c:if>
+
     <form action="${pageContext.request.contextPath}/editUser" method="post">
         <input type="hidden" name="userId" value="${userToEdit.id}">
 

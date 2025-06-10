@@ -12,7 +12,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/editUser")
-public class EditUserServlet extends HttpServlet {
+@AuthRequired(roles = {"ADMIN"})
+public class EditUserServlet extends AuthBaseServlet {
     private UserDao userDao;
 
     @Override
@@ -27,7 +28,7 @@ public class EditUserServlet extends HttpServlet {
             User user = userDao.getUserById(userId);
             if (user != null) {
                 req.setAttribute("userToEdit", user);
-                req.getRequestDispatcher("/edit-user.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/edit-user.jsp").forward(req, resp);
             } else {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "User not found.");
             }
@@ -50,8 +51,14 @@ public class EditUserServlet extends HttpServlet {
             user.setUsername(username);
             user.setRole(role);
             
-            // Note: we don't set the password, so the updateUser method in DAO shouldn't touch it.
-            // My current updateUser in DAO only changes username and role, which is correct.
+            // Optional: Prevent editing username to one that already exists
+            User existingUser = userDao.getUserByUsername(username);
+            if (existingUser != null && existingUser.getId() != userId) {
+                req.setAttribute("error", "Username already exists.");
+                req.setAttribute("userToEdit", user); // send user back to pre-fill the form
+                req.getRequestDispatcher("/WEB-INF/views/edit-user.jsp").forward(req, resp);
+                return;
+            }
 
             userDao.updateUser(user);
             resp.sendRedirect(req.getContextPath() + "/users");

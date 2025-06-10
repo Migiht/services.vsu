@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Add User</title>
@@ -11,10 +12,16 @@
         input[type="submit"] { padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
         input[type="submit"]:hover { background-color: #218838; }
         .back-link { margin-top: 20px; }
+        .error { color: #d9534f; margin-bottom: 15px; }
     </style>
 </head>
 <body>
     <h1>Add New User</h1>
+
+    <c:if test="${not empty error}">
+        <p class="error">${error}</p>
+    </c:if>
+
     <form action="${pageContext.request.contextPath}/addUser" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>

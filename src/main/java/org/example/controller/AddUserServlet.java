@@ -12,12 +12,18 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/addUser")
-public class AddUserServlet extends HttpServlet {
+@AuthRequired(roles = {"ADMIN"})
+public class AddUserServlet extends AuthBaseServlet {
     private UserDao userDao;
 
     @Override
     public void init() {
         userDao = new UserDao();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/views/add-user.jsp").forward(req, resp);
     }
 
     @Override
@@ -32,7 +38,8 @@ public class AddUserServlet extends HttpServlet {
             // Optional: Check if username already exists
             if (userDao.getUserByUsername(username) != null) {
                 // Handle error - user exists
-                resp.sendRedirect(req.getContextPath() + "/add-user.jsp?error=exists");
+                req.setAttribute("error", "Username already exists.");
+                req.getRequestDispatcher("/WEB-INF/views/add-user.jsp").forward(req, resp);
                 return;
             }
             userDao.addUser(newUser);
