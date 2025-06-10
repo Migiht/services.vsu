@@ -6,7 +6,11 @@
     <title>Programmers for Project: ${project.name}</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        h1, h2 { color: #333; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        h1, h2 { color: #333; margin: 0;}
+        .user-info { text-align: right; }
+        .user-info span { font-weight: bold; }
+        .user-info a { margin-left: 15px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px;}
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
@@ -19,8 +23,21 @@
 </head>
 <body>
 
-    <div class="nav-links">
-        <a href="${pageContext.request.contextPath}/projects">Back to Project List</a>
+    <div class="header">
+        <div class="nav-links">
+            <a href="${pageContext.request.contextPath}/projects">Back to Project List</a>
+        </div>
+        <div class="user-info">
+             <c:choose>
+                <c:when test="${not empty sessionScope.user}">
+                    <span>Welcome, ${sessionScope.user.username}! (${sessionScope.user.role})</span>
+                    <a href="${pageContext.request.contextPath}/logout">Logout</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
 
     <h1>Project: ${project.name}</h1>
@@ -33,7 +50,9 @@
 
     <h2>Programmers</h2>
 
-    <a href="${pageContext.request.contextPath}/add-programmer.jsp?projectId=${project.id}" class="add-link">Add New Programmer</a>
+    <c:if test="${sessionScope.user.role == 'MANAGER'}">
+        <a href="${pageContext.request.contextPath}/add-programmer.jsp?projectId=${project.id}" class="add-link">Add New Programmer</a>
+    </c:if>
 
     <table>
         <thead>
@@ -59,11 +78,14 @@
                     <td>${p.fullTime ? 'Yes' : 'No'}</td>
                     <td><fmt:formatNumber value="${p.calculatedSalary}" type="currency" currencySymbol="$" /></td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/deleteProgrammer" method="post" style="display:inline-block;">
-                            <input type="hidden" name="programmerId" value="${p.id}">
-                            <input type="hidden" name="projectId" value="${project.id}">
-                            <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this programmer?');">
-                        </form>
+                        <c:if test="${sessionScope.user.role == 'MANAGER'}">
+                            <a href="${pageContext.request.contextPath}/editProgrammer?programmerId=${p.id}" style="margin-right: 10px;">Edit</a>
+                            <form action="${pageContext.request.contextPath}/deleteProgrammer" method="post" style="display:inline-block;">
+                                <input type="hidden" name="programmerId" value="${p.id}">
+                                <input type="hidden" name="projectId" value="${project.id}">
+                                <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this programmer?');">
+                            </form>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>

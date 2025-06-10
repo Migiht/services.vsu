@@ -9,6 +9,20 @@ DROP FUNCTION IF EXISTS CountWorkDays;
 -- Drop tables if they exist to start fresh
 DROP TABLE IF EXISTS programmers;
 DROP TABLE IF EXISTS projects;
+DROP TABLE IF EXISTS users;
+
+-- Create users table
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL
+) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Insert a default admin user
+INSERT INTO users (username, password, role) VALUES ('admin', 'admin', 'ADMIN');
+INSERT INTO users (username, password, role) VALUES ('manager', 'manager', 'MANAGER');
+INSERT INTO users (username, password, role) VALUES ('user', 'user', 'USER');
 
 -- Create projects table (without cost column)
 CREATE TABLE projects (

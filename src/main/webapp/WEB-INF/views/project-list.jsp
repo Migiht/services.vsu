@@ -6,7 +6,11 @@
     <title>Projects</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { color: #333; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        h1 { color: #333; margin: 0; }
+        .user-info { text-align: right; }
+        .user-info span { font-weight: bold; }
+        .user-info a { margin-left: 15px; }
         table { width: 100%; border-collapse: collapse; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
@@ -17,10 +21,27 @@
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Project Management</h1>
+        <div class="user-info">
+            <c:choose>
+                <c:when test="${not empty sessionScope.user}">
+                    <span>Welcome, ${sessionScope.user.username}! (${sessionScope.user.role})</span>
+                    <c:if test="${sessionScope.user.role == 'ADMIN'}">
+                        <a href="${pageContext.request.contextPath}/users">User Management</a>
+                    </c:if>
+                    <a href="${pageContext.request.contextPath}/logout">Logout</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="${pageContext.request.contextPath}/login.jsp">Login</a>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
 
-    <h1>Project Management</h1>
-
-    <a href="${pageContext.request.contextPath}/add-project.jsp" class="add-link">Add New Project</a>
+    <c:if test="${sessionScope.user.role == 'MANAGER'}">
+        <a href="${pageContext.request.contextPath}/add-project.jsp" class="add-link">Add New Project</a>
+    </c:if>
 
     <table>
         <thead>
@@ -45,10 +66,13 @@
                     <td><fmt:formatNumber value="${project.calculatedCost}" type="currency" currencySymbol="$" /></td>
                     <td>
                         <a href="${pageContext.request.contextPath}/programmers?projectId=${project.id}">View Programmers</a>
-                        <form action="${pageContext.request.contextPath}/deleteProject" method="post" style="display:inline-block; margin-left: 10px;">
-                            <input type="hidden" name="projectId" value="${project.id}">
-                            <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this project? This will remove it from all assigned programmers.');">
-                        </form>
+                        <c:if test="${sessionScope.user.role == 'MANAGER'}">
+                            <a href="${pageContext.request.contextPath}/editProject?projectId=${project.id}" style="margin-left: 10px;">Edit</a>
+                            <form action="${pageContext.request.contextPath}/deleteProject" method="post" style="display:inline-block; margin-left: 10px;">
+                                <input type="hidden" name="projectId" value="${project.id}">
+                                <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this project? This will remove it from all assigned programmers.');">
+                            </form>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
