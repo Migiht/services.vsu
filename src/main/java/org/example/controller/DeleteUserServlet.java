@@ -1,4 +1,4 @@
-package org.example.controller;
+﻿package org.example.controller;
 
 import org.example.dao.UserDao;
 import org.example.model.User;
@@ -28,11 +28,11 @@ public class DeleteUserServlet extends AuthBaseServlet {
         try {
             long userId = Long.parseLong(req.getParameter("userId"));
 
-            // Prevent a user from deleting themselves
+            
             HttpSession session = req.getSession(false);
             User currentUser = (session != null) ? (User) session.getAttribute("user") : null;
             if (currentUser != null && currentUser.getId() == userId) {
-                // Optionally add an error message
+                
                 resp.sendRedirect(req.getContextPath() + "/users?error=selfdelete");
                 return;
             }

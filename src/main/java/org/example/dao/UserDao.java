@@ -1,4 +1,4 @@
-package org.example.dao;
+﻿package org.example.dao;
 
 import org.example.model.User;
 import org.example.util.DatabaseUtil;
@@ -83,16 +83,16 @@ public class UserDao {
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    // Log rollback failure
+                    
                 }
             }
-            throw e; // Re-throw the original exception
+            throw e; 
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    // Log close failure
+                    
                 }
             }
         }
@@ -116,7 +116,7 @@ public class UserDao {
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    // Log rollback failure
+                    
                 }
             }
             throw e;
@@ -125,7 +125,7 @@ public class UserDao {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    // Log close failure
+                    
                 }
             }
         }
@@ -147,7 +147,7 @@ public class UserDao {
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    // Log rollback failure
+                    
                 }
             }
             throw e;
@@ -156,7 +156,7 @@ public class UserDao {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    // Log close failure
+                    
                 }
             }
         }

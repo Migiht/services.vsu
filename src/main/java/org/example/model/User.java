@@ -1,4 +1,4 @@
-package org.example.model;
+﻿package org.example.model;
 
 public class User {
     private long id;
@@ -15,7 +15,7 @@ public class User {
         this.role = role;
     }
 
-    // Getters and Setters
+    
     public long getId() {
         return id;
     }

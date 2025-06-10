@@ -1,4 +1,4 @@
-package org.example.controller;
+﻿package org.example.controller;
 
 import org.example.dao.ProjectDao;
 
@@ -23,8 +23,8 @@ public class DeleteProjectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             long projectId = Long.parseLong(req.getParameter("projectId"));
-            // Note: Deleting a project might fail if programmers reference it and DB has foreign key constraints.
-            // The current schema (`ON DELETE SET NULL`) handles this by setting programmer's project_id to NULL.
+            
+            
             projectDao.deleteProject(projectId);
             resp.sendRedirect(req.getContextPath() + "/projects");
         } catch (NumberFormatException e) {

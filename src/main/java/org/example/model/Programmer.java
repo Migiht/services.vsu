@@ -1,4 +1,4 @@
-package org.example.model;
+﻿package org.example.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ public class Programmer {
     private LocalDate endDate;
     private BigDecimal hourlyRate;
     private boolean fullTime;
-    private BigDecimal calculatedSalary; // This is a transient field, not in DB
+    private BigDecimal calculatedSalary; 
 
     public Programmer() {
     }
@@ -31,7 +31,7 @@ public class Programmer {
         this.fullTime = fullTime;
     }
 
-    // Getters and Setters
+    
     public long getId() {
         return id;
     }

@@ -1,4 +1,4 @@
-package org.example.dao;
+﻿package org.example.dao;
 
 import org.example.model.Programmer;
 import org.example.util.DatabaseUtil;
@@ -44,10 +44,10 @@ public class ProgrammerDao {
             }
             conn.commit();
         } catch (SQLException e) {
-            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) {  } }
             throw e;
         } finally {
-            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
+            if (conn != null) { try { conn.close(); } catch (SQLException e) {  } }
         }
     }
 
@@ -66,13 +66,13 @@ public class ProgrammerDao {
     }
 
     public List<Programmer> getProgrammersByProjectId(long projectId, String sortBy, String order) throws SQLException {
-        // Whitelist columns to prevent SQL injection
+        
         List<String> allowedSorts = List.of("id", "last_name", "first_name", "position", "start_date", "end_date", "hourly_rate");
         if (sortBy == null || !allowedSorts.contains(sortBy.toLowerCase())) {
-            sortBy = "last_name"; // Default sort column
+            sortBy = "last_name"; 
         }
         if (order == null || !"desc".equalsIgnoreCase(order)) {
-            order = "asc"; // Default sort order
+            order = "asc"; 
         }
         
         List<Programmer> programmers = new ArrayList<>();
@@ -129,10 +129,10 @@ public class ProgrammerDao {
             }
             conn.commit();
         } catch (SQLException e) {
-            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) {  } }
             throw e;
         } finally {
-            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
+            if (conn != null) { try { conn.close(); } catch (SQLException e) {  } }
         }
     }
 
@@ -148,10 +148,10 @@ public class ProgrammerDao {
             }
             conn.commit();
         } catch (SQLException e) {
-            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) {  } }
             throw e;
         } finally {
-            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
+            if (conn != null) { try { conn.close(); } catch (SQLException e) {  } }
         }
     }
 

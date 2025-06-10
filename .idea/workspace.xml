@@ -4,19 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4791e65-72b6-4ec0-ac6e-360a68ae9e38" name="Changes" comment="add user management">
+    <list default="true" id="f4791e65-72b6-4ec0-ac6e-360a68ae9e38" name="Changes" comment="improve db transactions">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/AddProgrammerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/AddProgrammerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/AddProjectServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/AddProjectServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/AddUserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/AddUserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/AuthBaseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/AuthBaseServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/AuthRequired.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/AuthRequired.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/AuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/DeleteProgrammerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/DeleteProgrammerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/DeleteProjectServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/DeleteProjectServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/DeleteUserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/DeleteUserServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/EditProgrammerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/EditProgrammerServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/EditProjectServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/EditProjectServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/EditUserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/EditUserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/LogoutServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/LogoutServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/ProgrammerListServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/ProgrammerListServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/ProjectListServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/ProjectListServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/UserListServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/UserListServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user-list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user-list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/add-user.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-programmer.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-project.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-user.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/ProgrammerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/ProgrammerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/ProjectDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/ProjectDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Programmer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Programmer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Project.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/util/DatabaseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/util/DatabaseUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +129,7 @@
       <updated>1749582104977</updated>
       <workItem from="1749582105993" duration="2000" />
       <workItem from="1749582160691" duration="4846000" />
-      <workItem from="1749587700420" duration="5161000" />
+      <workItem from="1749587700420" duration="5592000" />
     </task>
     <task id="LOCAL-00001" summary="init working project beta">
       <option name="closed" value="true" />
@@ -134,7 +147,23 @@
       <option name="project" value="LOCAL" />
       <updated>1749592638894</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="improve role management">
+      <option name="closed" value="true" />
+      <created>1749593105582</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1749593105582</updated>
+    </task>
+    <task id="LOCAL-00004" summary="improve db transactions">
+      <option name="closed" value="true" />
+      <created>1749593252492</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1749593252492</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,6 +183,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init working project beta" />
     <MESSAGE value="add user management" />
-    <option name="LAST_COMMIT_MESSAGE" value="add user management" />
+    <MESSAGE value="improve role management" />
+    <MESSAGE value="improve db transactions" />
+    <option name="LAST_COMMIT_MESSAGE" value="improve db transactions" />
   </component>
 </project>

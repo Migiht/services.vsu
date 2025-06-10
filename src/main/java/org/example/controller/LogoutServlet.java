@@ -1,4 +1,4 @@
-package org.example.controller;
+﻿package org.example.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false); // false means do not create a new session if one does not exist
+        HttpSession session = req.getSession(false); 
         if (session != null) {
             session.invalidate();
         }

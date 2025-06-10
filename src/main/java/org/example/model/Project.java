@@ -1,4 +1,4 @@
-package org.example.model;
+﻿package org.example.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,7 +9,7 @@ public class Project {
     private String customer;
     private LocalDate startDate;
     private LocalDate endDate;
-    private BigDecimal calculatedCost; // This is a transient field, not in DB
+    private BigDecimal calculatedCost; 
 
     public Project() {
     }
@@ -21,7 +21,7 @@ public class Project {
         this.endDate = endDate;
     }
 
-    // Getters and Setters
+    
     public long getId() {
         return id;
     }

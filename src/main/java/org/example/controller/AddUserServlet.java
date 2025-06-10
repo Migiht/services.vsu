@@ -1,4 +1,4 @@
-package org.example.controller;
+﻿package org.example.controller;
 
 import org.example.dao.UserDao;
 import org.example.model.User;
@@ -29,15 +29,15 @@ public class AddUserServlet extends AuthBaseServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
-        String password = req.getParameter("password"); // In a real app, hash this!
+        String password = req.getParameter("password"); 
         String role = req.getParameter("role");
 
         User newUser = new User(username, password, role);
 
         try {
-            // Optional: Check if username already exists
+            
             if (userDao.getUserByUsername(username) != null) {
-                // Handle error - user exists
+                
                 req.setAttribute("error", "Username already exists.");
                 req.getRequestDispatcher("/WEB-INF/views/add-user.jsp").forward(req, resp);
                 return;

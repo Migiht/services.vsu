@@ -1,4 +1,4 @@
-package org.example.controller;
+﻿package org.example.controller;
 
 import org.example.dao.ProgrammerDao;
 
@@ -23,7 +23,7 @@ public class DeleteProgrammerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             long programmerId = Long.parseLong(req.getParameter("programmerId"));
-            long projectId = Long.parseLong(req.getParameter("projectId")); // For redirection
+            long projectId = Long.parseLong(req.getParameter("projectId")); 
 
             programmerDao.deleteProgrammer(programmerId);
             
