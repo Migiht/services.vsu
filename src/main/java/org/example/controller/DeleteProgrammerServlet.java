@@ -23,7 +23,7 @@ public class DeleteProgrammerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             long programmerId = Long.parseLong(req.getParameter("programmerId"));
-            long projectId = Long.parseLong(req.getParameter("projectId")); 
+            long projectId = Long.parseLong(req.getParameter("projectId")); // For redirection
 
             programmerDao.deleteProgrammer(programmerId);
             

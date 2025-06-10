@@ -12,7 +12,7 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false); 
+        HttpSession session = req.getSession(false); // false means do not create a new session if one does not exist
         if (session != null) {
             session.invalidate();
         }

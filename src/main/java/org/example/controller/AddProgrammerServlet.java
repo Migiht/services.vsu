@@ -40,23 +40,23 @@ public class AddProgrammerServlet extends HttpServlet {
             String endDateParam = req.getParameter("endDate");
             LocalDate programmerEndDate = (endDateParam == null || endDateParam.isEmpty()) ? null : LocalDate.parse(endDateParam);
 
-            
+            // Validation
             boolean isInvalid = false;
-            
+            // 1. Programmer's start must be on or after project's start
             if (programmerStartDate.isBefore(project.getStartDate())) {
                 isInvalid = true;
             }
-            
+            // 2. Programmer's end must be on or before project's end (if project has an end)
             if (project.getEndDate() != null && programmerEndDate != null && programmerEndDate.isAfter(project.getEndDate())) {
                 isInvalid = true;
             }
-            
+            // 3. Programmer's end must be after programmer's start
             if (programmerEndDate != null && programmerEndDate.isBefore(programmerStartDate)) {
                 isInvalid = true;
             }
             
             if (isInvalid) {
-                
+                // Redirect back with an error message
                 String errorUrl = String.format("%s/add-programmer.jsp?projectId=%d&error=date",
                                       req.getContextPath(), projectId);
                 resp.sendRedirect(errorUrl);

@@ -83,16 +83,16 @@ public class UserDao {
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    
+                    // Log rollback failure
                 }
             }
-            throw e; 
+            throw e; // Re-throw the original exception
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    
+                    // Log close failure
                 }
             }
         }
@@ -116,7 +116,7 @@ public class UserDao {
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    
+                    // Log rollback failure
                 }
             }
             throw e;
@@ -125,7 +125,7 @@ public class UserDao {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    
+                    // Log close failure
                 }
             }
         }
@@ -147,7 +147,7 @@ public class UserDao {
                 try {
                     conn.rollback();
                 } catch (SQLException ex) {
-                    
+                    // Log rollback failure
                 }
             }
             throw e;
@@ -156,7 +156,7 @@ public class UserDao {
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    
+                    // Log close failure
                 }
             }
         }

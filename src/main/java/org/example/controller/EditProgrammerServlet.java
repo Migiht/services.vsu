@@ -60,7 +60,7 @@ public class EditProgrammerServlet extends AuthBaseServlet {
             String endDateParam = req.getParameter("endDate");
             LocalDate programmerEndDate = (endDateParam == null || endDateParam.isEmpty()) ? null : LocalDate.parse(endDateParam);
 
-            
+            // Validation logic copied from AddProgrammerServlet
             boolean isInvalid = false;
             if (programmerStartDate.isBefore(project.getStartDate())) isInvalid = true;
             if (project.getEndDate() != null && programmerEndDate != null && programmerEndDate.isAfter(project.getEndDate())) isInvalid = true;

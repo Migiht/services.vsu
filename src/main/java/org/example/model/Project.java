@@ -9,7 +9,7 @@ public class Project {
     private String customer;
     private LocalDate startDate;
     private LocalDate endDate;
-    private BigDecimal calculatedCost; 
+    private BigDecimal calculatedCost; // This is a transient field, not in DB
 
     public Project() {
     }
@@ -21,7 +21,7 @@ public class Project {
         this.endDate = endDate;
     }
 
-    
+    // Getters and Setters
     public long getId() {
         return id;
     }

@@ -14,7 +14,7 @@ public class Programmer {
     private LocalDate endDate;
     private BigDecimal hourlyRate;
     private boolean fullTime;
-    private BigDecimal calculatedSalary; 
+    private BigDecimal calculatedSalary; // This is a transient field, not in DB
 
     public Programmer() {
     }
@@ -31,7 +31,7 @@ public class Programmer {
         this.fullTime = fullTime;
     }
 
-    
+    // Getters and Setters
     public long getId() {
         return id;
     }

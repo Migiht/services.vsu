@@ -35,10 +35,10 @@ public class ProjectDao {
             }
             conn.commit();
         } catch (SQLException e) {
-            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) {  } }
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
             throw e;
         } finally {
-            if (conn != null) { try { conn.close(); } catch (SQLException e) {  } }
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
         }
     }
 
@@ -57,13 +57,13 @@ public class ProjectDao {
     }
 
     public List<Project> getAllProjects(String sortBy, String order) throws SQLException {
-        
+        // Whitelist columns to prevent SQL injection
         List<String> allowedSorts = List.of("id", "name", "customer", "start_date", "end_date");
         if (sortBy == null || !allowedSorts.contains(sortBy.toLowerCase())) {
-            sortBy = "id"; 
+            sortBy = "id"; // Default sort column
         }
         if (order == null || !"desc".equalsIgnoreCase(order)) {
-            order = "asc"; 
+            order = "asc"; // Default sort order
         }
         
         List<Project> projects = new ArrayList<>();
@@ -99,10 +99,10 @@ public class ProjectDao {
             }
             conn.commit();
         } catch (SQLException e) {
-            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) {  } }
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
             throw e;
         } finally {
-            if (conn != null) { try { conn.close(); } catch (SQLException e) {  } }
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
         }
     }
 
@@ -118,10 +118,10 @@ public class ProjectDao {
             }
             conn.commit();
         } catch (SQLException e) {
-            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) {  } }
+            if (conn != null) { try { conn.rollback(); } catch (SQLException ex) { /* log */ } }
             throw e;
         } finally {
-            if (conn != null) { try { conn.close(); } catch (SQLException e) {  } }
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { /* log */ } }
         }
     }
 

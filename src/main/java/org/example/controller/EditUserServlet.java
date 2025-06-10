@@ -51,11 +51,11 @@ public class EditUserServlet extends AuthBaseServlet {
             user.setUsername(username);
             user.setRole(role);
             
-            
+            // Optional: Prevent editing username to one that already exists
             User existingUser = userDao.getUserByUsername(username);
             if (existingUser != null && existingUser.getId() != userId) {
                 req.setAttribute("error", "Username already exists.");
-                req.setAttribute("userToEdit", user); 
+                req.setAttribute("userToEdit", user); // send user back to pre-fill the form
                 req.getRequestDispatcher("/WEB-INF/views/edit-user.jsp").forward(req, resp);
                 return;
             }

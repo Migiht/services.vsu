@@ -51,7 +51,7 @@ public class EditProjectServlet extends AuthBaseServlet {
             LocalDate endDate = (endDateParam == null || endDateParam.isEmpty()) ? null : LocalDate.parse(endDateParam);
 
             if (endDate != null && endDate.isBefore(startDate)) {
-                
+                // Redirect back to edit page with error
                 resp.sendRedirect(req.getContextPath() + "/editProject?projectId=" + projectId + "&error=date");
                 return;
             }

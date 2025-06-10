@@ -31,13 +31,13 @@ public class AddProjectServlet extends HttpServlet {
         LocalDate endDate = (endDateParam == null || endDateParam.isEmpty()) ? null : LocalDate.parse(endDateParam);
 
         if (endDate != null && endDate.isBefore(startDate)) {
-            
+            // Handle error - ideally show a message to the user
             resp.sendRedirect(req.getContextPath() + "/add-project.jsp?error=enddate");
             return;
         }
 
         Project project = new Project(name, customer, startDate, endDate);
-        project.setCalculatedCost(BigDecimal.ZERO); 
+        project.setCalculatedCost(BigDecimal.ZERO); // Initial cost
 
         try {
             projectDao.addProject(project);
